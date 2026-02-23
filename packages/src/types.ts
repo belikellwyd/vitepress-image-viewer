@@ -10,4 +10,10 @@ export interface ImageViewerOptions {
    * @default true
    */
   autoShowThumbnails?: boolean
+
+  /**
+   * Ignore images wrapped in links
+   * @default true
+   */
+  ignoreLinkedImages?: boolean
 }

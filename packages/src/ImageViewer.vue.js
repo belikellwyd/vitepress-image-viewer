@@ -1,8 +1,9 @@
-/// <reference types="C:/Users/user1/Desktop/vitepress-image-viewer/packages/node_modules/@vue/language-core/types/template-helpers.d.ts" />
-/// <reference types="C:/Users/user1/Desktop/vitepress-image-viewer/packages/node_modules/@vue/language-core/types/props-fallback.d.ts" />
+/// <reference types="C:/Users/samet/Documents/projects/sametcn99/vitepress-image-viewer/node_modules/@vue/language-core/types/template-helpers.d.ts" />
+/// <reference types="C:/Users/samet/Documents/projects/sametcn99/vitepress-image-viewer/node_modules/@vue/language-core/types/props-fallback.d.ts" />
 import { ref, reactive, computed, onMounted, onUnmounted, nextTick } from 'vue';
 const props = defineProps();
 const autoShowThumbs = computed(() => props.autoShowThumbnails !== false);
+const ignoreLinked = computed(() => props.ignoreLinkedImages !== false);
 const visible = ref(false);
 const src = ref('');
 const alt = ref('');
@@ -46,7 +47,7 @@ function collectPageImages(root) {
     ];
     const defaultRoot = document.querySelector('main, article, .content, .vp-doc, .theme-doc, #main');
     const scope = root ?? defaultRoot ?? document;
-    const nodeList = Array.from(scope.querySelectorAll('img:not(.no-viewer)'));
+    const nodeList = Array.from(scope.querySelectorAll('img:not(.no-viewer):not([data-no-viewer])'));
     const minSize = 60;
     const filtered = nodeList.filter(img => {
         for (const sel of selectorsToExclude) {
@@ -56,6 +57,8 @@ function collectPageImages(root) {
         if (!img.src)
             return false;
         if (img.classList.contains('iv-thumb'))
+            return false;
+        if (ignoreLinked.value && img.closest('a'))
             return false;
         if (img.naturalWidth > 0 && img.naturalHeight > 0) {
             if (img.naturalWidth < minSize && img.naturalHeight < minSize) {

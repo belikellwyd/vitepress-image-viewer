@@ -1,10 +1,16 @@
 import { createApp, h, ref, nextTick } from 'vue';
 import ImageViewer from './ImageViewer.vue';
-function enhanceImages(viewerRef) {
-    const imgs = document.querySelectorAll('img:not(.no-viewer)');
+function enhanceImages(viewerRef, options = {}) {
+    const imgs = document.querySelectorAll('img:not(.no-viewer):not([data-no-viewer])');
+    const ignoreLinked = options.ignoreLinkedImages !== false;
     imgs.forEach(img => {
         if (img.dataset.viewerBound === 'true')
             return;
+        // If it's inside an anchor and we should ignore linked images, don't bind
+        if (ignoreLinked && img.closest('a')) {
+            img.dataset.viewerBound = 'true';
+            return;
+        }
         img.style.cursor = 'zoom-in';
         img.addEventListener('click', () => {
             if (viewerRef &&
@@ -27,6 +33,7 @@ export default function ImageViewerP(app, options = {}) {
     const rootStyle = document.documentElement.style;
     const useTransparentBg = options.transparentBg !== false;
     const autoShowThumbnails = options.autoShowThumbnails !== false;
+    const ignoreLinkedImages = options.ignoreLinkedImages !== false;
     rootStyle.setProperty('--iv-overlay-bg', useTransparentBg
         ? 'rgba(0, 0, 0, 0.75)'
         : 'var(--vp-code-block-bg)');
@@ -34,13 +41,14 @@ export default function ImageViewerP(app, options = {}) {
     const viewerApp = createApp({
         render: () => h(ImageViewer, {
             ref: viewerRef,
-            autoShowThumbnails
+            autoShowThumbnails,
+            ignoreLinkedImages
         })
     });
     viewerApp.mount(mountNode);
     const runEnhance = () => {
         nextTick(() => {
-            enhanceImages(viewerRef.value);
+            enhanceImages(viewerRef.value, options);
         });
     };
     runEnhance();

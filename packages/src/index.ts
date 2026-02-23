@@ -6,10 +6,21 @@ interface ImageViewerExpose {
   open: (src: string, alt?: string, originEl?: HTMLImageElement) => void
 }
 
-function enhanceImages(viewerRef: ComponentPublicInstance<ImageViewerExpose> | null) {
-  const imgs = document.querySelectorAll<HTMLImageElement>('img:not(.no-viewer)')
+function enhanceImages(
+  viewerRef: ComponentPublicInstance<ImageViewerExpose> | null,
+  options: ImageViewerOptions = {}
+) {
+  const imgs = document.querySelectorAll<HTMLImageElement>('img:not(.no-viewer):not([data-no-viewer])')
+  const ignoreLinked = options.ignoreLinkedImages !== false
+
   imgs.forEach(img => {
     if (img.dataset.viewerBound === 'true') return
+
+    // If it's inside an anchor and we should ignore linked images, don't bind
+    if (ignoreLinked && img.closest('a')) {
+      img.dataset.viewerBound = 'true'
+      return
+    }
 
     img.style.cursor = 'zoom-in'
     img.addEventListener('click', () => {
@@ -39,6 +50,7 @@ export default function ImageViewerP(
   const rootStyle = document.documentElement.style
   const useTransparentBg = options.transparentBg !== false
   const autoShowThumbnails = options.autoShowThumbnails !== false
+  const ignoreLinkedImages = options.ignoreLinkedImages !== false
 
 rootStyle.setProperty(
   '--iv-overlay-bg',
@@ -52,14 +64,15 @@ rootStyle.setProperty(
     render: () =>
       h(ImageViewer, {
         ref: viewerRef,
-        autoShowThumbnails
+        autoShowThumbnails,
+        ignoreLinkedImages
       })
   })
   viewerApp.mount(mountNode)
 
   const runEnhance = () => {
     nextTick(() => {
-      enhanceImages(viewerRef.value)
+      enhanceImages(viewerRef.value, options)
     })
   }
 
