@@ -46,11 +46,13 @@ export default {
 
 - ```autoShowThumbnails?: boolean``` - Automatically show thumbnails on desktop. Default is true.
 
+- ```ignoreLinkedImages?: boolean``` - Ignore images wrapped in links. Default is true.
+
 - ```exclude?: { classes?: string[], fileNames?: string[] }``` - Disable the viewer by a class on the image or any ancestor, or by file name.
 
 - ```include?: { classes?: string[], fileNames?: string[] }``` - Re-enable matching images. It takes priority over custom and built-in exclusions.
 
-The VitePress navigation logo (`.VPNavBarTitle .VPImage.logo`), home hero image (`.VPHero.VPHomeHero .image-bg`) and images with the `link-card-logo` class are excluded by default. To enable them again, add a matching class or file name to `include`.
+Linked images, the VitePress navigation logo (`.VPNavBarTitle .VPImage.logo`), home hero image (`.VPHero.VPHomeHero .image-bg`) and images with the `link-card-logo` class are excluded by default. To enable them again, set `ignoreLinkedImages` to `false` or add a matching class or file name to `include`.
 
 ```typescript [docs/.vitepress/theme/index.ts]
 import type { Theme } from 'vitepress'
@@ -65,6 +67,7 @@ export default {
     ImageViewerP(ctx.app, { //[!code ++]
       transparentBg: false, //[!code ++] default is true
       autoShowThumbnails: false, //[!code ++] default is true
+      ignoreLinkedImages: true, //[!code ++] default is true
       exclude: { //[!code ++]
         classes: ['image-viewer-disabled'], //[!code ++]
         fileNames: ['avatar.png'] //[!code ++]
@@ -133,3 +136,28 @@ export default {
   width="400px"
   caption="Japanese Waterfall."
 />
+
+### Linked image
+
+Images wrapped in links keep their normal navigation behavior and do not open the viewer by default.
+
+**Input:**
+
+```html [example.md]
+<a href="https://github.com/miletorix/vitepress-image-viewer">
+  <img src="/demo-5.png" alt="Linked image test" width="400" />
+</a>
+```
+
+**Output:**
+
+<a href="https://github.com/miletorix/vitepress-image-viewer" target="_blank" rel="noreferrer">
+  <ImageGroup
+    :sources="[
+      'demo-5.png'
+    ]"
+    type="manual"
+    width="400px"
+    caption="Link to github page."
+  />
+</a>

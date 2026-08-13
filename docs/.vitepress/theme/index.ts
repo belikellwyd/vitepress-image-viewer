@@ -21,6 +21,7 @@ export default {
   enhanceApp(ctx) {
     BackToTopButton(ctx.app) 
     ImageViewerP(ctx.app, {
+      ignoreLinkedImages: false,
       exclude: {
         classes: ['image-viewer-disabled'],
         fileNames: ['favicon.png']

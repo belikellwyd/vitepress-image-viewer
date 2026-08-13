@@ -51,6 +51,8 @@ export function isImageAllowed(image, options = {}) {
         return true;
     if (image.classList.contains('no-viewer'))
         return false;
+    if (options.ignoreLinkedImages !== false && image.closest('a'))
+        return false;
     if (DEFAULT_EXCLUDED_CLASSES.some(className => hasClassInTree(image, className))) {
         return false;
     }

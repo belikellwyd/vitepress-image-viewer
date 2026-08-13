@@ -94,7 +94,7 @@ import { isImageAllowed } from './imageRules.ts'
 
 const props = defineProps<{
   autoShowThumbnails?: boolean
-  imageRules?: Pick<ImageViewerOptions, 'exclude' | 'include'>
+  imageRules?: Pick<ImageViewerOptions, 'exclude' | 'include' | 'ignoreLinkedImages'>
 }>()
 
 const autoShowThumbs = computed(() => props.autoShowThumbnails !== false)

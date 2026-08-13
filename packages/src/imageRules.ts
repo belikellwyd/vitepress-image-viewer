@@ -56,12 +56,13 @@ function matchesRules(image: HTMLImageElement, rules?: ImageRuleSet) {
 
 export function isImageAllowed(
   image: HTMLImageElement,
-  options: Pick<ImageViewerOptions, 'exclude' | 'include'> = {}
+  options: Pick<ImageViewerOptions, 'exclude' | 'include' | 'ignoreLinkedImages'> = {}
 ) {
   // Explicit inclusions have the highest priority and can restore default exclusions.
   if (matchesRules(image, options.include)) return true
 
   if (image.classList.contains('no-viewer')) return false
+  if (options.ignoreLinkedImages !== false && image.closest('a')) return false
   if (DEFAULT_EXCLUDED_CLASSES.some(className => hasClassInTree(image, className))) {
     return false
   }

@@ -22,6 +22,12 @@ export interface ImageViewerOptions {
    */
   autoShowThumbnails?: boolean
 
+  /**
+   * Ignore images wrapped in links so navigation is not hijacked by the viewer.
+   * @default true
+   */
+  ignoreLinkedImages?: boolean
+
   /** Images to disable by an ancestor/image class or file name. */
   exclude?: ImageRuleSet
 
