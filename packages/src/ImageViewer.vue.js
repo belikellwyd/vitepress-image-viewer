@@ -1,6 +1,7 @@
 /// <reference types="C:/Users/user1/Desktop/vitepress-image-viewer/packages/node_modules/@vue/language-core/types/template-helpers.d.ts" />
 /// <reference types="C:/Users/user1/Desktop/vitepress-image-viewer/packages/node_modules/@vue/language-core/types/props-fallback.d.ts" />
 import { ref, reactive, computed, onMounted, onUnmounted, nextTick } from 'vue';
+import { isImageAllowed } from './imageRules.ts';
 const props = defineProps();
 const autoShowThumbs = computed(() => props.autoShowThumbnails !== false);
 const visible = ref(false);
@@ -31,28 +32,13 @@ let thumbOffset = ref(0);
 let lastScopeRoot = null;
 const imageTransition = ref('iv-fade');
 function collectPageImages(root) {
-    const selectorsToExclude = [
-        'nav',
-        'header',
-        '.navbar',
-        '.site-logo',
-        '.logo',
-        '.vp-nav',
-        '.vp-site-logo',
-        '.theme-toggle',
-        '.vp-navbar',
-        '.link-card-logo',
-        '.thumb'
-    ];
     const defaultRoot = document.querySelector('main, article, .content, .vp-doc, .theme-doc, #main');
     const scope = root ?? defaultRoot ?? document;
-    const nodeList = Array.from(scope.querySelectorAll('img:not(.no-viewer)'));
+    const nodeList = Array.from(scope.querySelectorAll('img'));
     const minSize = 60;
     const filtered = nodeList.filter(img => {
-        for (const sel of selectorsToExclude) {
-            if (img.closest(sel))
-                return false;
-        }
+        if (!isImageAllowed(img, props.imageRules))
+            return false;
         if (!img.src)
             return false;
         if (img.classList.contains('iv-thumb'))

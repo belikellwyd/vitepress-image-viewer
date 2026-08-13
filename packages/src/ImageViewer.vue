@@ -89,9 +89,12 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import type { ImageViewerOptions } from './types'
+import { isImageAllowed } from './imageRules.ts'
 
 const props = defineProps<{
   autoShowThumbnails?: boolean
+  imageRules?: Pick<ImageViewerOptions, 'exclude' | 'include'>
 }>()
 
 const autoShowThumbs = computed(() => props.autoShowThumbnails !== false)
@@ -134,29 +137,13 @@ let lastScopeRoot: Element | null = null
 const imageTransition = ref('iv-fade')
 
 function collectPageImages(root?: Element | null) {
-  const selectorsToExclude = [
-    'nav',
-    'header',
-    '.navbar',
-    '.site-logo',
-    '.logo',
-    '.vp-nav',
-    '.vp-site-logo',
-    '.theme-toggle',
-    '.vp-navbar',
-    '.link-card-logo',
-    '.thumb'
-  ]
-
   const defaultRoot = document.querySelector('main, article, .content, .vp-doc, .theme-doc, #main')
   const scope: Element | Document = root ?? defaultRoot ?? document
 
-  const nodeList = Array.from(scope.querySelectorAll<HTMLImageElement>('img:not(.no-viewer)'))
+  const nodeList = Array.from(scope.querySelectorAll<HTMLImageElement>('img'))
   const minSize = 60;
   const filtered = nodeList.filter(img => {
-    for (const sel of selectorsToExclude) {
-      if (img.closest(sel)) return false
-    }
+    if (!isImageAllowed(img, props.imageRules)) return false
     if (!img.src) return false
     if (img.classList.contains('iv-thumb')) return false
     

@@ -3,18 +3,21 @@
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
+    "plugin:build": "npm --prefix packages run build",
+    "plugin:test": "npm run plugin:build && vitepress build docs",
+    "plugin:dev": "npm run plugin:build && vitepress dev docs",
     "deploy": "vitepress build docs && gh-pages -d docs/.vitepress/dist"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.4"
   },
   "dependencies": {
     "@miletorix/vitepress-back-to-top-button": "^1.0.3",
     "@miletorix/vitepress-enhanced-site-links": "^1.0.6",
     "@miletorix/vitepress-image-group": "^1.1.5",
-    "@miletorix/vitepress-image-viewer": "^1.3.2",
-    "markdown-it": "^14.1.0",
-    "vitepress-plugin-group-icons": "^1.6.1"
+    "@miletorix/vitepress-image-viewer": "file:packages/miletorix-vitepress-image-viewer-1.3.3.tgz",
+    "markdown-it": "^15.0.0",
+    "vitepress-plugin-group-icons": "^1.7.6"
   }
 }

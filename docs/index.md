@@ -46,6 +46,12 @@ export default {
 
 - ```autoShowThumbnails?: boolean``` - Automatically show thumbnails on desktop. Default is true.
 
+- ```exclude?: { classes?: string[], fileNames?: string[] }``` - Disable the viewer by a class on the image or any ancestor, or by file name.
+
+- ```include?: { classes?: string[], fileNames?: string[] }``` - Re-enable matching images. It takes priority over custom and built-in exclusions.
+
+The VitePress navigation logo (`.VPNavBarTitle .VPImage.logo`), home hero image (`.VPHero.VPHomeHero .image-bg`) and images with the `link-card-logo` class are excluded by default. To enable them again, add a matching class or file name to `include`.
+
 ```typescript [docs/.vitepress/theme/index.ts]
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
@@ -58,7 +64,13 @@ export default {
   enhanceApp(ctx) { 
     ImageViewerP(ctx.app, { //[!code ++]
       transparentBg: false, //[!code ++] default is true
-      autoShowThumbnails: false //[!code ++] default is true
+      autoShowThumbnails: false, //[!code ++] default is true
+      exclude: { //[!code ++]
+        classes: ['image-viewer-disabled'], //[!code ++]
+        fileNames: ['avatar.png'] //[!code ++]
+      }, //[!code ++]
+      // Uncomment a class to restore a built-in exclusion.
+      include: { classes: [], fileNames: [] } //[!code ++]
     }) //[!code ++]
   }
 }

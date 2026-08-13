@@ -1,12 +1,17 @@
 import { createApp, h, ref, nextTick } from 'vue';
 import ImageViewer from './ImageViewer.vue';
-function enhanceImages(viewerRef) {
-    const imgs = document.querySelectorAll('img:not(.no-viewer)');
+import { isImageAllowed } from './imageRules.ts';
+function enhanceImages(viewerRef, options) {
+    const imgs = document.querySelectorAll('img');
     imgs.forEach(img => {
         if (img.dataset.viewerBound === 'true')
             return;
+        if (!isImageAllowed(img, options))
+            return;
         img.style.cursor = 'zoom-in';
         img.addEventListener('click', () => {
+            if (!isImageAllowed(img, options))
+                return;
             if (viewerRef &&
                 typeof viewerRef.open === 'function' &&
                 !viewerRef.visible) {
@@ -34,32 +39,21 @@ export default function ImageViewerP(app, options = {}) {
     const viewerApp = createApp({
         render: () => h(ImageViewer, {
             ref: viewerRef,
-            autoShowThumbnails
+            autoShowThumbnails,
+            imageRules: options
         })
     });
     viewerApp.mount(mountNode);
     const runEnhance = () => {
         nextTick(() => {
-            enhanceImages(viewerRef.value);
+            enhanceImages(viewerRef.value, options);
         });
     };
     runEnhance();
-    const isDev = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV;
-    if (isDev) {
-        import('vitepress').then(mod => {
-            const router = mod.useRouter?.();
-            router?.afterEach?.(() => {
-                runEnhance();
-            });
-        }).catch(() => {
-            setTimeout(runEnhance, 100);
-        });
-    }
-    else {
-        const observer = new MutationObserver(() => {
-            runEnhance();
-        });
-        observer.observe(document.querySelector('#app'), {
+    const appRoot = document.querySelector('#app');
+    if (appRoot) {
+        const observer = new MutationObserver(runEnhance);
+        observer.observe(appRoot, {
             childList: true,
             subtree: true,
         });

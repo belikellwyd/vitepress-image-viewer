@@ -1,18 +1,24 @@
 import { createApp, h, App, ref, ComponentPublicInstance, nextTick } from 'vue'
 import ImageViewer from './ImageViewer.vue'
 import type { ImageViewerOptions } from './types'
+import { isImageAllowed } from './imageRules.ts'
 
 interface ImageViewerExpose {
   open: (src: string, alt?: string, originEl?: HTMLImageElement) => void
 }
 
-function enhanceImages(viewerRef: ComponentPublicInstance<ImageViewerExpose> | null) {
-  const imgs = document.querySelectorAll<HTMLImageElement>('img:not(.no-viewer)')
+function enhanceImages(
+  viewerRef: ComponentPublicInstance<ImageViewerExpose> | null,
+  options: ImageViewerOptions
+) {
+  const imgs = document.querySelectorAll<HTMLImageElement>('img')
   imgs.forEach(img => {
     if (img.dataset.viewerBound === 'true') return
+    if (!isImageAllowed(img, options)) return
 
     img.style.cursor = 'zoom-in'
     img.addEventListener('click', () => {
+      if (!isImageAllowed(img, options)) return
       if (
         viewerRef &&
         typeof viewerRef.open === 'function' &&
@@ -52,35 +58,24 @@ rootStyle.setProperty(
     render: () =>
       h(ImageViewer, {
         ref: viewerRef,
-        autoShowThumbnails
+        autoShowThumbnails,
+        imageRules: options
       })
   })
   viewerApp.mount(mountNode)
 
   const runEnhance = () => {
     nextTick(() => {
-      enhanceImages(viewerRef.value)
+      enhanceImages(viewerRef.value, options)
     })
   }
 
   runEnhance()
 
-  const isDev = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV
-
-  if (isDev) {
-    import('vitepress').then(mod => {
-      const router = (mod as any).useRouter?.()
-      router?.afterEach?.(() => {
-        runEnhance()
-      })
-    }).catch(() => {
-      setTimeout(runEnhance, 100)
-    })
-  } else {
-    const observer = new MutationObserver(() => {
-      runEnhance()
-    })
-    observer.observe(document.querySelector('#app')!, {
+  const appRoot = document.querySelector('#app')
+  if (appRoot) {
+    const observer = new MutationObserver(runEnhance)
+    observer.observe(appRoot, {
       childList: true,
       subtree: true,
     })

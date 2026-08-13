@@ -1,3 +1,14 @@
+export interface ImageRuleSet {
+  /**
+   * CSS class names on an image or any of its ancestors.
+   * Both `logo` and `.logo` forms are accepted.
+   */
+  classes?: string[]
+
+  /** File names matched against the image URL, without its path, query or hash. */
+  fileNames?: string[]
+}
+
 export interface ImageViewerOptions {
   /**
    * Use transparent dark overlay instead of solid background
@@ -10,4 +21,13 @@ export interface ImageViewerOptions {
    * @default true
    */
   autoShowThumbnails?: boolean
+
+  /** Images to disable by an ancestor/image class or file name. */
+  exclude?: ImageRuleSet
+
+  /**
+   * Images to enable even when they match a custom or built-in exclusion.
+   * Include rules take priority over exclude rules.
+   */
+  include?: ImageRuleSet
 }
