@@ -7,7 +7,7 @@ VitePress image viewer with zoom, drag, fullscreen overlay, captions and downloa
 ## Live Demo and more information
 
 ✨ See it in action:  
-👉 [https://miletorix.github.io/vitepress-image-viewer/](https://miletorix.github.io/vitepress-image-viewer/)
+👉 [https://bonsaiborn.github.io/vitepress-image-viewer/](https://bonsaiborn.github.io/vitepress-image-viewer/)
 
 ## Installation
 

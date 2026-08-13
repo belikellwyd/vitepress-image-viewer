@@ -7,7 +7,7 @@ VitePress image viewer with zoom, drag, fullscreen overlay, captions and downloa
 ## Live Demo and more information
 
 ✨ See it in action:  
-👉 [https://miletorix.github.io/vitepress-image-viewer/](https://miletorix.github.io/vitepress-image-viewer/)
+👉 [https://bonsaiborn.github.io/vitepress-image-viewer/](https://bonsaiborn.github.io/vitepress-image-viewer/)
 
 📦 NPM Package:  
 👉 [https://www.npmjs.com/package/@miletorix/vitepress-image-viewer](https://www.npmjs.com/package/@miletorix/vitepress-image-viewer)
