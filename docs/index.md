@@ -10,18 +10,18 @@ sidebar: false
 
 VitePress image viewer with zoom, drag, fullscreen overlay, captions and download button. Automatically enhances all images on the page. Built with Vue 3. ✨ 
 
-![npm](https://img.shields.io/npm/v/@miletorix/vitepress-image-viewer)  
-![npm](https://img.shields.io/npm/dw/@miletorix/vitepress-image-viewer)  
-![license](https://img.shields.io/npm/l/@miletorix/vitepress-image-viewer)
+![npm](https://img.shields.io/npm/v/@belikellwyd/vitepress-image-viewer)  
+![npm](https://img.shields.io/npm/dw/@belikellwyd/vitepress-image-viewer)  
+![license](https://img.shields.io/npm/l/@belikellwyd/vitepress-image-viewer)
 
 
 ## Installation
 
 ```sh [npm]
-npm i @miletorix/vitepress-image-viewer
+npm i @belikellwyd/vitepress-image-viewer
 ```
 
-## Usage
+## Usage ❤️
 
 ### Configuration
 
@@ -29,8 +29,8 @@ npm i @miletorix/vitepress-image-viewer
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import ImageViewerP from '@miletorix/vitepress-image-viewer' //[!code ++]
-import '@miletorix/vitepress-image-viewer/style.css' //[!code ++]
+import ImageViewerP from '@belikellwyd/vitepress-image-viewer' //[!code ++]
+import '@belikellwyd/vitepress-image-viewer/style.css' //[!code ++]
 
 export default {
   extends: DefaultTheme,
@@ -58,8 +58,8 @@ Linked images, the VitePress navigation logo (`.VPNavBarTitle .VPImage.logo`), h
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import ImageViewerP from '@miletorix/vitepress-image-viewer' //[!code ++]
-import '@miletorix/vitepress-image-viewer/style.css' //[!code ++]
+import ImageViewerP from '@belikellwyd/vitepress-image-viewer' //[!code ++]
+import '@belikellwyd/vitepress-image-viewer/style.css' //[!code ++]
 
 export default {
   extends: DefaultTheme,
@@ -111,7 +111,7 @@ export default {
 
 <br/>
 
-<Card title="@miletorix/vitepress-image-group" link="https://www.npmjs.com/package/@miletorix/vitepress-image-group" />
+<Card title="@belikellwyd/vitepress-image-group" link="https://www.npmjs.com/package/@belikellwyd/vitepress-image-group" />
 
 **Input:**
 
@@ -144,14 +144,14 @@ Images wrapped in links keep their normal navigation behavior and do not open th
 **Input:**
 
 ```html [example.md]
-<a href="https://github.com/miletorix/vitepress-image-viewer">
+<a href="https://github.com/belikellwyd/vitepress-image-viewer">
   <img src="/demo-5.png" alt="Linked image test" width="400" />
 </a>
 ```
 
 **Output:**
 
-<a href="https://github.com/miletorix/vitepress-image-viewer" target="_blank" rel="noreferrer">
+<a href="https://github.com/belikellwyd/vitepress-image-viewer" target="_blank" rel="noreferrer">
   <ImageGroup
     :sources="[
       'demo-5.png'

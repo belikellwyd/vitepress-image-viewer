@@ -2,20 +2,20 @@
 
 VitePress image viewer with zoom, drag, fullscreen overlay, captions and download button. Ability to change the background to transparent. Automatically enhances all images on the page. Built with Vue 3. 
 
-![npm](https://img.shields.io/npm/v/@miletorix/vitepress-image-viewer)  ![npm](https://img.shields.io/npm/dw/@miletorix/vitepress-image-viewer)  ![license](https://img.shields.io/npm/l/@miletorix/vitepress-image-viewer)
+![npm](https://img.shields.io/npm/v/@belikellwyd/vitepress-image-viewer)  ![npm](https://img.shields.io/npm/dw/@belikellwyd/vitepress-image-viewer)  ![license](https://img.shields.io/npm/l/@belikellwyd/vitepress-image-viewer)
 
 ## Live Demo and more information
 
 ✨ See it in action:  
-👉 [https://bonsaiborn.github.io/vitepress-image-viewer/](https://bonsaiborn.github.io/vitepress-image-viewer/)
+👉 [https://belikellwyd.github.io/vitepress-image-viewer/](https://belikellwyd.github.io/vitepress-image-viewer/)
 
 📦 NPM Package:  
-👉 [https://www.npmjs.com/package/@miletorix/vitepress-image-viewer](https://www.npmjs.com/package/@miletorix/vitepress-image-viewer)
+👉 [https://www.npmjs.com/package/@belikellwyd/vitepress-image-viewer](https://www.npmjs.com/package/@belikellwyd/vitepress-image-viewer)
 
 ## Installation
 
 ```sh [npm]
-npm i @miletorix/vitepress-image-viewer
+npm i @belikellwyd/vitepress-image-viewer
 ```
 
 ## Usage
@@ -27,8 +27,8 @@ npm i @miletorix/vitepress-image-viewer
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import ImageViewerP from '@miletorix/vitepress-image-viewer' //[!code ++]
-import '@miletorix/vitepress-image-viewer/style.css' //[!code ++]
+import ImageViewerP from '@belikellwyd/vitepress-image-viewer' //[!code ++]
+import '@belikellwyd/vitepress-image-viewer/style.css' //[!code ++]
 
 export default {
   extends: DefaultTheme,
@@ -57,8 +57,8 @@ Linked images, VitePress navigation logos (`.VPNavBarTitle .VPImage.logo`), home
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import ImageViewerP from '@miletorix/vitepress-image-viewer' //[!code ++]
-import '@miletorix/vitepress-image-viewer/style.css' //[!code ++]
+import ImageViewerP from '@belikellwyd/vitepress-image-viewer' //[!code ++]
+import '@belikellwyd/vitepress-image-viewer/style.css' //[!code ++]
 
 export default {
   extends: DefaultTheme,
