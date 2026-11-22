@@ -16,7 +16,7 @@
     "@belikellwyd/vitepress-back-to-top-button": "^1.0.4",
     "@belikellwyd/vitepress-enhanced-site-links": "^1.0.7",
     "@belikellwyd/vitepress-image-group": "^1.1.5",
-    "@belikellwyd/vitepress-image-viewer": "^1.3.6",
+    "@belikellwyd/vitepress-image-viewer": "^1.3.7",
     "markdown-it": "^15.0.0",
     "vitepress-plugin-group-icons": "^1.7.6"
   }
