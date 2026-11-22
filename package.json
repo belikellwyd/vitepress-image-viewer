@@ -18,6 +18,6 @@
     "@belikellwyd/vitepress-image-group": "^1.1.5",
     "@belikellwyd/vitepress-image-viewer": "^1.3.7",
     "markdown-it": "^15.0.3",
-    "vitepress-plugin-group-icons": "^1.7.6"
+    "vitepress-plugin-group-icons": "^1.8.2"
   }
 }
