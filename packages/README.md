@@ -4,6 +4,12 @@ VitePress image viewer with zoom, drag, fullscreen overlay, captions and downloa
 
 ![npm](https://img.shields.io/npm/v/@belikellwyd/vitepress-image-viewer)  ![npm](https://img.shields.io/npm/dw/@belikellwyd/vitepress-image-viewer)  ![license](https://img.shields.io/npm/l/@belikellwyd/vitepress-image-viewer)
 
+> **Package migration**
+>
+> This package has moved from `@miletorix/vitepress-image-viewer` to `@belikellwyd/vitepress-image-viewer`.
+>
+> Please update your dependencies accordingly.
+
 ## Live Demo and more information
 
 ✨ See it in action:  
