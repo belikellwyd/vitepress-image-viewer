@@ -17,13 +17,16 @@
       "import": "./dist/image-viewer.es.js",
       "require": "./dist/image-viewer.umd.js"
     },
-    "./style.css": "./dist/index.css"
+    "./style.css": {
+      "types": "./dist/style.css.d.ts",
+      "default": "./dist/index.css"
+    }
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "vue-tsc -p tsconfig.json && vite build && copy src\\index.d.ts dist\\index.d.ts",
+    "build": "vue-tsc -p tsconfig.json && vite build && copy src\\index.d.ts dist\\index.d.ts && copy src\\style.css.d.ts dist\\style.css.d.ts",
     "clean": "rimraf dist node_modules .vite .turbo",
     "prepublishOnly": "npm run build"
   },
