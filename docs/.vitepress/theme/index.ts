@@ -9,8 +9,8 @@ import '@belikellwyd/vitepress-image-group/style.css'
 import BackToTopButton from '@belikellwyd/vitepress-back-to-top-button'
 import '@belikellwyd/vitepress-back-to-top-button/style.css'
 
-// Use the local source while developing the plugin in this repository.
-import ImageViewerP from '../../../packages/src/index.ts'
+import ImageViewerP from '@belikellwyd/vitepress-image-viewer'
+import '@belikellwyd/vitepress-image-viewer/style.css'
 
 import { Card, CardsGroup } from '@belikellwyd/vitepress-enhanced-site-links'
 import '@belikellwyd/vitepress-enhanced-site-links/style.css'
